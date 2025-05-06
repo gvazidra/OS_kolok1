@@ -4,7 +4,6 @@ project(FibonacciPalindromeLinkedlist)
 set(CMAKE_CXX_STANDARD 17)
 
 include(FetchContent)
-
 FetchContent_Declare(
     catch2
     GIT_REPOSITORY https://github.com/catchorg/Catch2.git
@@ -20,6 +19,8 @@ set(SOURCES
 )
 
 add_executable(FibonacciPalindromeLinkedlist ${SOURCES})
+
+target_include_directories(FibonacciPalindromeLinkedlist PRIVATE ${catch2_SOURCE_DIR}/single_include)
 
 target_link_libraries(FibonacciPalindromeLinkedlist PRIVATE Catch2::Catch2WithMain)
 
