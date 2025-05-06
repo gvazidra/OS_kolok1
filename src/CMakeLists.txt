@@ -3,6 +3,15 @@ project(FibonacciPalindromeLinkedlist)
 
 set(CMAKE_CXX_STANDARD 17)
 
+include(FetchContent)
+
+FetchContent_Declare(
+    catch2
+    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+    GIT_TAG v3.5.2
+)
+FetchContent_MakeAvailable(catch2)
+
 set(SOURCES
     fibonacci.cpp
     palindrome.cpp
@@ -12,13 +21,8 @@ set(SOURCES
 
 add_executable(FibonacciPalindromeLinkedlist ${SOURCES})
 
-if(MSVC)
-    message(STATUS "Building on Windows with MSVC")
-else()
-    if(UNIX)
-        target_link_libraries(FibonacciPalindromeLinkedlist pthread)
-    endif()
-endif()
+target_link_libraries(FibonacciPalindromeLinkedlist PRIVATE Catch2::Catch2WithMain)
 
 include(CTest)
-add_test(NAME FibonacciPalindromeLinkedlistTest COMMAND FibonacciPalindromeLinkedlist)
+include(Catch)
+catch_discover_tests(FibonacciPalindromeLinkedlist)
